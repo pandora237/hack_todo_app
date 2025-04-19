@@ -13,7 +13,7 @@ const useStoreTodoApp = create<StoreState>()(
             }),
         {
             name: key_storage,
-            getStorage: () => localStorage,
+            // getStorage: () => localStorage,
         }
     )
 )

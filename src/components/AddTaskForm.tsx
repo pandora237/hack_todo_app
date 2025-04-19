@@ -60,7 +60,7 @@ export default function AddTaskForm(props: Props) {
 
 
     return (
-        <div className=" max-w-96 sm:min-w-96 bg-white p-3 rounded-2xl">
+        <div className=" max-w-96 sm:min-w-96 md:min-w-[450px] bg-white p-3 rounded-2xl">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <h1 className=" font-extrabold text-2xl text-center m">Add / Edit Task</h1>

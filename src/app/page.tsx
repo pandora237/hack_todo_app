@@ -26,7 +26,7 @@ export default function Linsting() {
 
   const user = useStoreTodoApp(s => s.user)
   if (!user) {
-    return redirect('/login')
+    // return redirect('/login')
   }
 
   const fakeTasks: Task[] = [

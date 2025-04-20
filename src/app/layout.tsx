@@ -34,9 +34,9 @@ export default function RootLayout({
       </head>
 
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-200  min-h-screen flex flex-col justify-between`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-auto  min-h-screen flex flex-col justify-between`}
       >
-        <div className=" w-full">
+        <div className=" w-full ">
           <Header />
           <ToastContainer position='bottom-center' autoClose={5000} theme="dark" />
         </div>

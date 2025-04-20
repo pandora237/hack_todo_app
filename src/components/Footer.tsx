@@ -9,8 +9,8 @@ export default function Footer(props: Props) {
 
     return (
         <>
-            <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center border-t-2 border-accent py-1">
-                <p>© 2025 ENSPY-3GI</p>
+            <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center border-t-2 border-accent py-1 text-xs">
+                <p>© 💻A³Code 2025 ENSPY-3GI</p>
             </footer>
         </>
     )

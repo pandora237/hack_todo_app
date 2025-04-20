@@ -10,6 +10,7 @@ type StoreState = {
 
 type User = {
     id: number,
+    isLogged: boolean
 
 }
 

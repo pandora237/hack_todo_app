@@ -68,7 +68,7 @@ export default function AddTaskForm(props: Props) {
 
 
     return (
-        <div className=" max-w-96 min-w-72 sm:min-w-96 md:min-w-[450px] bg-white p-3 rounded-2xl">
+        <div className=" max-w-96 min-w-72 sm:min-w-96 md:min-w-[450px] bg-accent p-3 rounded-2xl">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <div className=" w-full flex items-center justify-between text-center " onClick={

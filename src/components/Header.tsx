@@ -13,6 +13,9 @@ export default function Header(props: Props) {
             <Link href="/" className="cursor-pointer " title="TodoApp">
                 <Image height={30} width={30} src={'/img/logo.svg'} alt="logo" />
             </Link>
+            <div className=" w-full flex items-center justify-center">
+                <h1 className=" font-extrabold  text-2xl py-2">TODO APP</h1>
+            </div>
             <div className=" flex items-center gap-2">
                 <div className=" font-sm hover:opacity-50 cursor-pointer max-h-8 p-2 hover:bg-gray-100 rounded-full flex justify-center items-center" >
                     <span><i className="fa-solid fa-user"></i></span>

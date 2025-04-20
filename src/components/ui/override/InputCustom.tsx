@@ -16,7 +16,7 @@ function Input({ className, type, icon, ...props }: React.ComponentProps<"input"
         )}
         {...props}
       />
-      <span className=" absolute top-0.5 translate-0.5 right-1.5">{icon}</span>
+      <span className=" absolute top-1/2 -translate-1/2 right-1.5">{icon}</span>
     </div>
   )
 }

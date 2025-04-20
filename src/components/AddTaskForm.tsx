@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form"
 import { z } from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from '@/components/ui/override/ButtonCustom'
-import { useState } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 import {
     Select,
     SelectContent,
@@ -39,14 +39,22 @@ import { Textarea } from "./ui/textarea"
 
 
 interface Props {
+    closeForm?: Dispatch<SetStateAction<boolean>>
+    task?: Task
 }
 
 export default function AddTaskForm(props: Props) {
+    const { closeForm, task } = props
 
     const form = useForm<z.infer<typeof addTaskType>>({
         resolver: zodResolver(addTaskType),
         defaultValues: {
-            title: "",
+            title: task?.title,
+            description: task?.description,
+            start_date: task?.end_date.toDateString(),
+            end_date: task?.start_date.toDateString(),
+            time_reminder: task?.time_reminder,
+            priority: task?.priority.toString(),
         },
     })
 
@@ -60,10 +68,18 @@ export default function AddTaskForm(props: Props) {
 
 
     return (
-        <div className=" max-w-96 sm:min-w-96 md:min-w-[450px] bg-white p-3 rounded-2xl">
+        <div className=" max-w-96 min-w-72 sm:min-w-96 md:min-w-[450px] bg-white p-3 rounded-2xl">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                    <h1 className=" font-extrabold text-2xl text-center m">Add / Edit Task</h1>
+                    <div className=" w-full flex items-center justify-between text-center " onClick={
+                        () => {
+                            if (closeForm) {
+                                closeForm(false)
+                            }
+                        }}>
+                        <h1 className=" font-extrabold text-2xl text-center m">{task ? 'Edit' : 'Add'} Task</h1>
+                        <span className=" w-6 h-6 bg-red-500 font-bold text-white  cursor-pointer"> X</span>
+                    </div>
                     <FormField
                         control={form.control}
                         name="title"
@@ -169,7 +185,7 @@ export default function AddTaskForm(props: Props) {
                             <FormItem>
                                 <FormLabel>time reminder</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="time reminder" {...field} type="time" disabled={isLoader} className=" block w-full" />
+                                    <Input placeholder="time reminder" {...field} type="number" disabled={isLoader} className=" block w-full" />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -189,8 +205,9 @@ export default function AddTaskForm(props: Props) {
                                         <SelectContent>
                                             <SelectGroup>
                                                 <SelectLabel>Fruits</SelectLabel>
-                                                <SelectItem value="apple">Apple</SelectItem>
-                                                <SelectItem value="banana">Banana</SelectItem>
+                                                <SelectItem value="1">high</SelectItem>
+                                                <SelectItem value="2">medium</SelectItem>
+                                                <SelectItem value="3">low</SelectItem>
                                             </SelectGroup>
                                         </SelectContent>
                                     </Select>

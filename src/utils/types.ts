@@ -12,13 +12,27 @@ type User = {
     id: number,
 
 }
-type Task = {
-    id: number;
+
+enum Priority {
+    Low = "low",
+    Medium = "medium",
+    High = "high"
 }
 
-type Categories = {
+type Task = {
+    id: number;
+    title: string,
+    description: string,
+    status: boolean,
+    start_date: Date,
+    end_date: Date,
+    time_reminder: number,
+    priority: number,
+    category: Categorie
+}
+
+type Categorie = {
     id: number,
     title: string,
-    descrition: string
-
+    description: string
 }

@@ -41,7 +41,7 @@ export const addTaskType = z.object({
     end_date: z.string().date().min(4, {
         message: "end date is required .",
     }),
-    time_reminder: z.string().time().min(4, {
+    time_reminder: z.number().min(4, {
         message: "time reminder is required .",
     }),
     priority: z.string().min(4, {

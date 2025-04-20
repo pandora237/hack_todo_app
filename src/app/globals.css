@@ -125,3 +125,22 @@
 .container {
   @apply max-w-screen-2xl px-5 w-full mx-auto max-md:px-3 max-sm:px-2;
 }
+
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--accent-foreground);
+  border-radius: 2px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--foreground);
+  border-radius: 2px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: red;
+  width: 8px;
+}

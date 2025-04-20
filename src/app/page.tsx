@@ -659,39 +659,45 @@ export default function Linsting() {
     }
     setCurrentT(taskGroup)
   }
+  const datas = Object.values(currentT)
 
   return (
-    < main className=" flex flex-col items-center justify-center w-full h-full">
-      <div className=" w-[98vw] overflow-x-hidden container  p-2 flex flex-col items-center justify-center ">
+    < main className=" flex flex-col items-start justify-center w-full h-full">
+      <div className=" w-[98vw] overflow-x-hidden   px-2 flex flex-col items-center justify-center ">
         <section>
-          <div className=" my-4 py-3">
-            <div className=" flex max-sm:flex-col sm:gap-4 gap-2 items-center ">
+          <div className="  py-3">
+            <div className="flex max-sm:flex-col sm:gap-4 gap-1 items-center ">
               <Input placeholder="search" onKeyUp={handlChange} icon={<i className="fa-solid fa-search fa-2x mr-1"></i>} className=" bg-blue-100 w-80 h-14  border-2 border-accent-foreground !text-xl" />
-              <div className=" md:flex gap-1 items-center">
-                <Select >
-                  <SelectTrigger className="w-44 sm:!h-14 bg-white !text-xl">
-                    <SelectValue placeholder="select Categories" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {/* <SelectLabel>All Categories</SelectLabel> */}
-                      <SelectItem value="All" >All ... </SelectItem>
-                      <SelectItem value="apple" >Apple</SelectItem>
-                      <SelectItem value="banana">Banana</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
+              <div className=" flex items-center gap-1">
+                <div className=" md:flex gap-1 items-center">
+                  <Select >
+                    <SelectTrigger className="w-44 sm:!h-14 bg-white !text-xl">
+                      <SelectValue placeholder="select Categories" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {/* <SelectLabel>All Categories</SelectLabel> */}
+                        <SelectItem value="All" >All ... </SelectItem>
+                        <SelectItem value="apple" >Apple</SelectItem>
+                        <SelectItem value="banana">Banana</SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <Button className=" sm:h-14 " onClick={() => { setShowAddForm(true) }} >
+                  add task
+                </Button>
               </div>
-              <Button className=" sm:h-14 " onClick={() => { setShowAddForm(true) }} >
-                add task
-              </Button>
+
             </div>
           </div>
-
         </section >
-        <section className=" flex gap-2  items-start  w-full overflow-x-auto overflow-y-hidden h-[calc(100vh_-_269px)]">
-          {
-            Object.values(currentT).map((tasks, index) => <CategoriesTasks key={"cat_" + index} tasks={tasks} />)
+        <section className=" flex gap-0  items-center justify-center  w-full overflow-x-auto overflow-y-hidden h-[calc(100vh_-_210px)]">
+          {datas.length > 0 ?
+            datas.map((tasks, index) => <CategoriesTasks key={"cat_" + index} tasks={tasks} />) :
+            <div className=" w-full h-full flex items-center justify-center">
+              <span className=" text-2xl font-bold">No Taks</span>
+            </div>
           }
         </section>
         <Overlay close={showAddForm} >

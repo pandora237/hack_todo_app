@@ -126,7 +126,6 @@
   @apply max-w-screen-2xl px-5 w-full mx-auto max-md:px-3 max-sm:px-2;
 }
 
-
 /* Track */
 ::-webkit-scrollbar-track {
   background: var(--accent-foreground);

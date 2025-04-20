@@ -200,11 +200,10 @@ export default function AddTaskForm(props: Props) {
                                 <FormControl>
                                     <Select {...field} disabled={isLoader}>
                                         <SelectTrigger className="w-[180px]">
-                                            <SelectValue placeholder="Select a fruit" />
+                                            <SelectValue placeholder="Select a priority" />
                                         </SelectTrigger>
                                         <SelectContent>
                                             <SelectGroup>
-                                                <SelectLabel>Fruits</SelectLabel>
                                                 <SelectItem value="1">high</SelectItem>
                                                 <SelectItem value="2">medium</SelectItem>
                                                 <SelectItem value="3">low</SelectItem>

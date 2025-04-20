@@ -53,7 +53,7 @@ export default function CategoriesTasks(props: Props) {
     return (
         <div className=" p-2 rounded-2xl h-full">
             <Card className=" !w-80 h-full gap-1 grid grid-rows-[50px_auto_50px]">
-                <div className="bg-blue-500 py-2 flex items-center justify-between w-full px-2">
+                <div className="bg-blue-500 dark:bg-accent py-2 flex items-center justify-between w-full px-2">
                     <CardHeader className="  ">
                         <CardTitle className=" font-extrabold uppercase text-white "><h2 className="text-sm">{cat?.title}</h2></CardTitle>
                     </CardHeader>
@@ -72,7 +72,7 @@ export default function CategoriesTasks(props: Props) {
                 <CardContent className=" flex flex-col gap-3 overflow-y-auto overflow-x-hidden p-2">
                     {currentT.map(t => <ItemsTask key={'task_' + t.id} task={t} />)}
                 </CardContent>
-                <CardFooter className="bg-blue-500 py-2">
+                <CardFooter className="bg-blue-500 dark:bg-accent py-2 dark:text-accent-foreground">
                     <p>  Footer</p>
                 </CardFooter>
             </Card>

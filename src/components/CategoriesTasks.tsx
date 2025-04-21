@@ -55,7 +55,7 @@ export default function CategoriesTasks(props: Props) {
             <Card className=" !w-80 h-full gap-1 grid grid-rows-[50px_auto_50px]">
                 <div className="bg-blue-500 dark:bg-accent py-2 flex items-center justify-between w-full px-2">
                     <CardHeader className="  ">
-                        <CardTitle className=" font-extrabold uppercase text-white "><h2 className="text-sm">{cat?.title}</h2></CardTitle>
+                        <CardTitle className=" font-extrabold uppercase text-white "><h2 className="text-sm">{cat?.name}</h2></CardTitle>
                     </CardHeader>
                     <Select onValueChange={handlerChange} >
                         <SelectTrigger className="w-[90px] bg-white h-11">

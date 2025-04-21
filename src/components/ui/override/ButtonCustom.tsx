@@ -44,11 +44,13 @@ function Button({
   size,
   asChild = false,
   children,
+  hiddenChild,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     isLoader?: boolean,
-    asChild?: boolean
+    asChild?: boolean,
+    hiddenChild?: boolean
   }) {
   const Comp = asChild ? Slot : "button"
 
@@ -60,8 +62,16 @@ function Button({
       {
         isLoader ?
           (<div className="flex items-center gap-2">
-            {children}
-            <Image src={'/img/spinner.svg'} height={20} width={20} alt="loader" />
+            {hiddenChild ? null : children}
+            {/* <Image src={'/img/spinner.svg'} height={20} width={20} alt="loader" /> */}
+            <div>
+              <svg className={`animate-spin w-[1.3em] h-[1.3em] mx-auto 
+                                             ${''} 
+                                             `} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </div>
           </div>)
           : (children)
       }

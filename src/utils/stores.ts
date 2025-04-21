@@ -10,6 +10,9 @@ const useStoreTodoApp = create<StoreState>()(
                 user: null,
                 setUser: (user) => set(() => ({ user })),
 
+                categories: [],
+                setCategories: (categories) => set(() => ({ categories })),
+
             }),
         {
             name: key_storage,

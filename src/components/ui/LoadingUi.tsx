@@ -1,7 +1,5 @@
 import Link from 'next/link'
 import React from 'react'
-import defaultImg from '@/assets/img/scolrar/scolrar_3.png'
-import './style_spinner.css'
 
 interface Props {
 }

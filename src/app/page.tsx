@@ -19,6 +19,7 @@ import Overlay from "@/components/Overlay";
 import AddTaskForm from "@/components/AddTaskForm";
 import useStoreTodoApp from "@/utils/stores";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 export default function Linsting() {
   const [currentT, setCurrentT] = useState<Record<number, Task[]>>([])
@@ -35,13 +36,13 @@ export default function Linsting() {
       title: "Faire les courses",
       description: "Acheter du pain, des œufs, du lait et des fruits.",
       status: false,
-      start_date: new Date("2025-04-18T09:00:00"),
-      end_date: new Date("2025-04-18T10:00:00"),
+      start_date: "2025-04-18T09:00:00",
+      end_date: "2025-04-18T10:00:00",
       time_reminder: 15,
       priority: 2,
       category: {
         id: 1,
-        title: "Vie quotidienne",
+        name: "Vie quotidienne",
         description: "Tâches liées à la maison ou aux besoins personnels"
       }
     },
@@ -50,13 +51,13 @@ export default function Linsting() {
       title: "Réunion projet Hackathon",
       description: "Réunion de coordination avec l'équipe hackathon.",
       status: true,
-      start_date: new Date("2025-04-19T14:30:00"),
-      end_date: new Date("2025-04-19T16:00:00"),
+      start_date: "2025-04-19T14:30:00",
+      end_date: "2025-04-19T16:00:00",
       time_reminder: 30,
       priority: 3,
       category: {
         id: 2,
-        title: "Travail",
+        name: "Travail",
         description: "Tâches liées au travail ou aux projets professionnels"
       }
     },
@@ -65,13 +66,13 @@ export default function Linsting() {
       title: "Session de sport",
       description: "30 minutes de cardio et 30 minutes de musculation.",
       status: false,
-      start_date: new Date("2025-04-20T07:00:00"),
-      end_date: new Date("2025-04-20T08:00:00"),
+      start_date: "2025-04-20T07:00:00",
+      end_date: "2025-04-20T08:00:00",
       time_reminder: 10,
       priority: 1,
       category: {
         id: 3,
-        title: "Santé",
+        name: "Santé",
         description: "Tâches relatives au bien-être physique et mental"
       }
     },
@@ -80,13 +81,13 @@ export default function Linsting() {
       title: "Réviser Java JEE",
       description: "Approfondir les servlets, JSP et JPA pour l'examen.",
       status: false,
-      start_date: new Date("2025-04-20T20:00:00"),
-      end_date: new Date("2025-04-20T22:00:00"),
+      start_date: "2025-04-20T20:00:00",
+      end_date: "2025-04-20T22:00:00",
       time_reminder: 20,
       priority: 3,
       category: {
         id: 4,
-        title: "Études",
+        name: "Études",
         description: "Tâches liées aux études académiques"
       }
     },
@@ -95,13 +96,13 @@ export default function Linsting() {
       title: "Appeler maman",
       description: "Vérifier si tout va bien et prendre des nouvelles.",
       status: true,
-      start_date: new Date("2025-04-18T18:00:00"),
-      end_date: new Date("2025-04-18T18:30:00"),
+      start_date: "2025-04-18T18:00:00",
+      end_date: "2025-04-18T18:30:00",
       time_reminder: 5,
       priority: 2,
       category: {
         id: 1,
-        title: "Vie quotidienne",
+        name: "Vie quotidienne",
         description: "Tâches liées à la maison ou aux besoins personnels"
       }
     }, {
@@ -109,13 +110,13 @@ export default function Linsting() {
       title: "Préparer la présentation du projet",
       description: "Créer les slides et revoir le plan de présentation.",
       status: false,
-      start_date: new Date("2025-04-21T15:00:00"),
-      end_date: new Date("2025-04-21T17:00:00"),
+      start_date: "2025-04-21T15:00:00",
+      end_date: "2025-04-21T17:00:00",
       time_reminder: 25,
       priority: 3,
       category: {
         id: 2,
-        title: "Travail",
+        name: "Travail",
         description: "Tâches liées au travail ou aux projets professionnels"
       }
     },
@@ -124,13 +125,13 @@ export default function Linsting() {
       title: "Lecture détente",
       description: "Lire un chapitre du livre 'L'Alchimiste' de Paulo Coelho.",
       status: false,
-      start_date: new Date("2025-04-21T21:00:00"),
-      end_date: new Date("2025-04-21T22:00:00"),
+      start_date: "2025-04-21T21:00:00",
+      end_date: "2025-04-21T22:00:00",
       time_reminder: 10,
       priority: 1,
       category: {
         id: 5,
-        title: "Loisirs",
+        name: "Loisirs",
         description: "Activités de détente ou de plaisir personnel"
       }
     },
@@ -139,13 +140,13 @@ export default function Linsting() {
       title: "Faire la lessive",
       description: "Lancer une machine pour les vêtements de couleur.",
       status: false,
-      start_date: new Date("2025-04-22T08:00:00"),
-      end_date: new Date("2025-04-22T09:00:00"),
+      start_date: "2025-04-22T08:00:00",
+      end_date: "2025-04-22T09:00:00",
       time_reminder: 15,
       priority: 2,
       category: {
         id: 1,
-        title: "Vie quotidienne",
+        name: "Vie quotidienne",
         description: "Tâches liées à la maison ou aux besoins personnels"
       }
     },
@@ -154,13 +155,13 @@ export default function Linsting() {
       title: "Rechercher un stage",
       description: "Envoyer 3 candidatures pour des stages en développement.",
       status: false,
-      start_date: new Date("2025-04-22T10:00:00"),
-      end_date: new Date("2025-04-22T12:00:00"),
+      start_date: "2025-04-22T10:00:00",
+      end_date: "2025-04-22T12:00:00",
       time_reminder: 30,
       priority: 3,
       category: {
         id: 2,
-        title: "Travail",
+        name: "Travail",
         description: "Tâches liées au travail ou aux projets professionnels"
       }
     },
@@ -169,13 +170,13 @@ export default function Linsting() {
       title: "Méditation",
       description: "10 minutes de respiration et de pleine conscience.",
       status: false,
-      start_date: new Date("2025-04-22T06:30:00"),
-      end_date: new Date("2025-04-22T06:45:00"),
+      start_date: "2025-04-22T06:30:00",
+      end_date: "2025-04-22T06:45:00",
       time_reminder: 5,
       priority: 1,
       category: {
         id: 3,
-        title: "Santé",
+        name: "Santé",
         description: "Tâches relatives au bien-être physique et mental"
       }
     }, {
@@ -183,13 +184,13 @@ export default function Linsting() {
       title: "Planifier la semaine",
       description: "Organiser les tâches importantes de la semaine à venir.",
       status: false,
-      start_date: new Date("2025-04-22T19:00:00"),
-      end_date: new Date("2025-04-22T19:30:00"),
+      start_date: "2025-04-22T19:00:00",
+      end_date: "2025-04-22T19:30:00",
       time_reminder: 10,
       priority: 2,
       category: {
         id: 1,
-        title: "Vie quotidienne",
+        name: "Vie quotidienne",
         description: "Tâches liées à la maison ou aux besoins personnels"
       }
     },
@@ -198,13 +199,13 @@ export default function Linsting() {
       title: "Corriger le rapport de projet",
       description: "Relire et corriger les fautes dans le rapport.",
       status: false,
-      start_date: new Date("2025-04-23T10:00:00"),
-      end_date: new Date("2025-04-23T11:30:00"),
+      start_date: "2025-04-23T10:00:00",
+      end_date: "2025-04-23T11:30:00",
       time_reminder: 15,
       priority: 3,
       category: {
         id: 2,
-        title: "Travail",
+        name: "Travail",
         description: "Tâches liées au travail ou aux projets professionnels"
       }
     },
@@ -213,13 +214,13 @@ export default function Linsting() {
       title: "Étude du cours d'algorithmique",
       description: "Réviser les arbres binaires et les algorithmes de tri.",
       status: false,
-      start_date: new Date("2025-04-23T14:00:00"),
-      end_date: new Date("2025-04-23T16:00:00"),
+      start_date: "2025-04-23T14:00:00",
+      end_date: "2025-04-23T16:00:00",
       time_reminder: 20,
       priority: 3,
       category: {
         id: 4,
-        title: "Études",
+        name: "Études",
         description: "Tâches liées aux études académiques"
       }
     },
@@ -228,13 +229,13 @@ export default function Linsting() {
       title: "Marcher 10 000 pas",
       description: "Petite promenade dans le quartier pour atteindre l'objectif santé.",
       status: true,
-      start_date: new Date("2025-04-23T17:00:00"),
-      end_date: new Date("2025-04-23T18:00:00"),
+      start_date: "2025-04-23T17:00:00",
+      end_date: "2025-04-23T18:00:00",
       time_reminder: 5,
       priority: 1,
       category: {
         id: 3,
-        title: "Santé",
+        name: "Santé",
         description: "Tâches relatives au bien-être physique et mental"
       }
     },
@@ -243,387 +244,13 @@ export default function Linsting() {
       title: "Regarder un film",
       description: "Se détendre en regardant un film de science-fiction.",
       status: true,
-      start_date: new Date("2025-04-23T21:00:00"),
-      end_date: new Date("2025-04-23T23:00:00"),
+      start_date: "2025-04-23T21:00:00",
+      end_date: "2025-04-23T23:00:00",
       time_reminder: 0,
       priority: 1,
       category: {
         id: 5,
-        title: "Loisirs",
-        description: "Activités de détente ou de plaisir personnel"
-      }
-    },
-    {
-      id: 16,
-      title: "Cuisiner un nouveau plat",
-      description: "Essayer une recette de curry végétarien.",
-      status: false,
-      start_date: new Date("2025-04-24T12:00:00"),
-      end_date: new Date("2025-04-24T13:30:00"),
-      time_reminder: 10,
-      priority: 2,
-      category: {
-        id: 1,
-        title: "Vie quotidienne",
-        description: "Tâches liées à la maison ou aux besoins personnels"
-      }
-    },
-    {
-      id: 17,
-      title: "Répondre aux mails",
-      description: "Lire et traiter les e-mails non lus de la semaine.",
-      status: true,
-      start_date: new Date("2025-04-24T09:00:00"),
-      end_date: new Date("2025-04-24T09:30:00"),
-      time_reminder: 5,
-      priority: 2,
-      category: {
-        id: 2,
-        title: "Travail",
-        description: "Tâches liées au travail ou aux projets professionnels"
-      }
-    },
-    {
-      id: 18,
-      title: "Écouter un podcast",
-      description: "Podcast sur le développement personnel.",
-      status: false,
-      start_date: new Date("2025-04-24T22:00:00"),
-      end_date: new Date("2025-04-24T22:45:00"),
-      time_reminder: 5,
-      priority: 1,
-      category: {
-        id: 5,
-        title: "Loisirs",
-        description: "Activités de détente ou de plaisir personnel"
-      }
-    },
-    {
-      id: 19,
-      title: "Yoga matinal",
-      description: "Séance de 20 minutes pour démarrer la journée.",
-      status: true,
-      start_date: new Date("2025-04-24T06:30:00"),
-      end_date: new Date("2025-04-24T06:50:00"),
-      time_reminder: 5,
-      priority: 1,
-      category: {
-        id: 3,
-        title: "Santé",
-        description: "Tâches relatives au bien-être physique et mental"
-      }
-    },
-    {
-      id: 20,
-      title: "Lire un article scientifique",
-      description: "Revue d’un article sur les réseaux neuronaux convolutifs.",
-      status: false,
-      start_date: new Date("2025-04-25T15:30:00"),
-      end_date: new Date("2025-04-25T16:30:00"),
-      time_reminder: 10,
-      priority: 3,
-      category: {
-        id: 4,
-        title: "Études",
-        description: "Tâches liées aux études académiques"
-      }
-    }, {
-      id: 21,
-      title: "Nettoyer l'appartement",
-      description: "Passer l'aspirateur, faire la vaisselle et ranger.",
-      status: false,
-      start_date: new Date("2025-04-25T09:00:00"),
-      end_date: new Date("2025-04-25T10:30:00"),
-      time_reminder: 15,
-      priority: 2,
-      category: {
-        id: 1,
-        title: "Vie quotidienne",
-        description: "Tâches liées à la maison ou aux besoins personnels"
-      }
-    },
-    {
-      id: 22,
-      title: "Rédiger une lettre de motivation",
-      description: "Pour le stage de fin d'études.",
-      status: false,
-      start_date: new Date("2025-04-25T11:00:00"),
-      end_date: new Date("2025-04-25T12:00:00"),
-      time_reminder: 15,
-      priority: 3,
-      category: {
-        id: 2,
-        title: "Travail",
-        description: "Tâches liées au travail ou aux projets professionnels"
-      }
-    },
-    {
-      id: 23,
-      title: "Étude de la programmation système",
-      description: "Lire le chapitre sur les threads et processus.",
-      status: false,
-      start_date: new Date("2025-04-25T17:00:00"),
-      end_date: new Date("2025-04-25T18:30:00"),
-      time_reminder: 10,
-      priority: 3,
-      category: {
-        id: 4,
-        title: "Études",
-        description: "Tâches liées aux études académiques"
-      }
-    },
-    {
-      id: 24,
-      title: "Séance de HIIT",
-      description: "Entraînement intensif de 30 minutes.",
-      status: true,
-      start_date: new Date("2025-04-25T06:30:00"),
-      end_date: new Date("2025-04-25T07:00:00"),
-      time_reminder: 10,
-      priority: 2,
-      category: {
-        id: 3,
-        title: "Santé",
-        description: "Tâches relatives au bien-être physique et mental"
-      }
-    },
-    {
-      id: 25,
-      title: "Jouer à un jeu vidéo",
-      description: "Détente après une journée chargée.",
-      status: false,
-      start_date: new Date("2025-04-25T22:00:00"),
-      end_date: new Date("2025-04-25T23:00:00"),
-      time_reminder: 0,
-      priority: 1,
-      category: {
-        id: 5,
-        title: "Loisirs",
-        description: "Activités de détente ou de plaisir personnel"
-      }
-    },
-    {
-      id: 26,
-      title: "Mettre à jour le CV",
-      description: "Ajouter les nouvelles expériences et compétences.",
-      status: false,
-      start_date: new Date("2025-04-26T13:00:00"),
-      end_date: new Date("2025-04-26T14:00:00"),
-      time_reminder: 10,
-      priority: 3,
-      category: {
-        id: 2,
-        title: "Travail",
-        description: "Tâches liées au travail ou aux projets professionnels"
-      }
-    },
-    {
-      id: 27,
-      title: "Appeler un ami",
-      description: "Prendre des nouvelles et discuter un moment.",
-      status: true,
-      start_date: new Date("2025-04-26T16:00:00"),
-      end_date: new Date("2025-04-26T16:30:00"),
-      time_reminder: 5,
-      priority: 1,
-      category: {
-        id: 1,
-        title: "Vie quotidienne",
-        description: "Tâches liées à la maison ou aux besoins personnels"
-      }
-    },
-    {
-      id: 28,
-      title: "Lire un livre",
-      description: "Poursuivre la lecture de 'Clean Code'.",
-      status: true,
-      start_date: new Date("2025-04-26T20:00:00"),
-      end_date: new Date("2025-04-26T21:00:00"),
-      time_reminder: 0,
-      priority: 1,
-      category: {
-        id: 5,
-        title: "Loisirs",
-        description: "Activités de détente ou de plaisir personnel"
-      }
-    },
-    {
-      id: 29,
-      title: "Préparer une présentation",
-      description: "Présentation sur les API RESTful.",
-      status: false,
-      start_date: new Date("2025-04-27T10:00:00"),
-      end_date: new Date("2025-04-27T11:30:00"),
-      time_reminder: 20,
-      priority: 3,
-      category: {
-        id: 4,
-        title: "Études",
-        description: "Tâches liées aux études académiques"
-      }
-    },
-    {
-      id: 30,
-      title: "Méditation",
-      description: "10 minutes de pleine conscience.",
-      status: true,
-      start_date: new Date("2025-04-27T06:30:00"),
-      end_date: new Date("2025-04-27T06:40:00"),
-      time_reminder: 5,
-      priority: 1,
-      category: {
-        id: 3,
-        title: "Santé",
-        description: "Tâches relatives au bien-être physique et mental"
-      }
-    },
-    {
-      id: 31,
-      title: "Configurer un environnement de développement",
-      description: "Installer Node.js, VSCode et Git.",
-      status: true,
-      start_date: new Date("2025-04-27T14:00:00"),
-      end_date: new Date("2025-04-27T15:00:00"),
-      time_reminder: 15,
-      priority: 2,
-      category: {
-        id: 2,
-        title: "Travail",
-        description: "Tâches liées au travail ou aux projets professionnels"
-      }
-    },
-    {
-      id: 32,
-      title: "Aller au marché",
-      description: "Acheter légumes et épices pour la semaine.",
-      status: false,
-      start_date: new Date("2025-04-28T08:00:00"),
-      end_date: new Date("2025-04-28T09:00:00"),
-      time_reminder: 15,
-      priority: 2,
-      category: {
-        id: 1,
-        title: "Vie quotidienne",
-        description: "Tâches liées à la maison ou aux besoins personnels"
-      }
-    },
-    {
-      id: 33,
-      title: "Faire une sauvegarde des fichiers",
-      description: "Copier les documents importants sur le disque externe.",
-      status: false,
-      start_date: new Date("2025-04-28T12:00:00"),
-      end_date: new Date("2025-04-28T12:30:00"),
-      time_reminder: 5,
-      priority: 2,
-      category: {
-        id: 2,
-        title: "Travail",
-        description: "Tâches liées au travail ou aux projets professionnels"
-      }
-    },
-    {
-      id: 34,
-      title: "Réviser les probabilités",
-      description: "Étudier la loi normale et les espérances.",
-      status: false,
-      start_date: new Date("2025-04-28T18:00:00"),
-      end_date: new Date("2025-04-28T19:30:00"),
-      time_reminder: 10,
-      priority: 3,
-      category: {
-        id: 4,
-        title: "Études",
-        description: "Tâches liées aux études académiques"
-      }
-    },
-    {
-      id: 35,
-      title: "Séance d'étirement",
-      description: "15 minutes pour relâcher les tensions.",
-      status: true,
-      start_date: new Date("2025-04-28T20:00:00"),
-      end_date: new Date("2025-04-28T20:15:00"),
-      time_reminder: 0,
-      priority: 1,
-      category: {
-        id: 3,
-        title: "Santé",
-        description: "Tâches relatives au bien-être physique et mental"
-      }
-    },
-    {
-      id: 36,
-      title: "Tester une application mobile",
-      description: "Test fonctionnel sur différentes résolutions.",
-      status: false,
-      start_date: new Date("2025-04-29T10:00:00"),
-      end_date: new Date("2025-04-29T11:30:00"),
-      time_reminder: 20,
-      priority: 3,
-      category: {
-        id: 2,
-        title: "Travail",
-        description: "Tâches liées au travail ou aux projets professionnels"
-      }
-    },
-    {
-      id: 37,
-      title: "Réviser le modèle OSI",
-      description: "Chapitres sur les couches réseau et transport.",
-      status: false,
-      start_date: new Date("2025-04-29T14:00:00"),
-      end_date: new Date("2025-04-29T15:30:00"),
-      time_reminder: 10,
-      priority: 3,
-      category: {
-        id: 4,
-        title: "Études",
-        description: "Tâches liées aux études académiques"
-      }
-    },
-    {
-      id: 38,
-      title: "Installer les mises à jour système",
-      description: "Mettre à jour l'OS et les logiciels installés.",
-      status: true,
-      start_date: new Date("2025-04-29T18:00:00"),
-      end_date: new Date("2025-04-29T18:30:00"),
-      time_reminder: 5,
-      priority: 2,
-      category: {
-        id: 1,
-        title: "Vie quotidienne",
-        description: "Tâches liées à la maison ou aux besoins personnels"
-      }
-    },
-    {
-      id: 39,
-      title: "Faire une sieste",
-      description: "Recharge rapide de 20 minutes.",
-      status: false,
-      start_date: new Date("2025-04-29T13:30:00"),
-      end_date: new Date("2025-04-29T14:00:00"),
-      time_reminder: 0,
-      priority: 1,
-      category: {
-        id: 3,
-        title: "Santé",
-        description: "Tâches relatives au bien-être physique et mental"
-      }
-    },
-    {
-      id: 40,
-      title: "Écouter de la musique",
-      description: "Playlist détente pour le soir.",
-      status: true,
-      start_date: new Date("2025-04-29T21:00:00"),
-      end_date: new Date("2025-04-29T21:45:00"),
-      time_reminder: 0,
-      priority: 1,
-      category: {
-        id: 5,
-        title: "Loisirs",
+        name: "Loisirs",
         description: "Activités de détente ou de plaisir personnel"
       }
     }
@@ -685,7 +312,7 @@ export default function Linsting() {
                   </Select>
                 </div>
                 <Button className=" sm:h-14 " onClick={() => { setShowAddForm(true) }} >
-                  add task
+                  <Link href={'/task/add'}>add task</Link>
                 </Button>
               </div>
 
@@ -700,9 +327,9 @@ export default function Linsting() {
             </div>
           }
         </section>
-        <Overlay close={showAddForm} >
+        {/* <Overlay close={showAddForm} >
           <AddTaskForm closeForm={setShowAddForm} />
-        </Overlay>
+        </Overlay> */}
 
       </div >
     </main>

@@ -2,17 +2,17 @@ import z from "zod"
 
 
 export const registerFormType = z.object({
-    firstName: z.string().min(2, {
-        message: "firstName is required .",
+    username: z.string().min(2, {
+        message: "username is required .",
     }),
-    lastName: z.string().min(2, {
-        message: "lastName is required .",
+    first_name: z.string().min(2, {
+        message: "first_name is required .",
     }),
-    userName: z.string().min(2, {
-        message: "userName is required .",
+    last_name: z.string().min(2, {
+        message: "last_name is required .",
     }),
     email: z.string().email().min(2, {
-        message: "firstName is required .",
+        message: "email is required .",
     }),
     password: z.string().min(4, {
         message: "password is required .",
@@ -21,7 +21,7 @@ export const registerFormType = z.object({
 
 export const loginFormType = z.object({
     email: z.string().email().min(2, {
-        message: "firstName is required .",
+        message: "username is required .",
     }),
     password: z.string().min(4, {
         message: "password is required .",
@@ -35,16 +35,25 @@ export const addTaskType = z.object({
     description: z.string().min(4, {
         message: "description is required .",
     }),
-    start_date: z.string().date().min(4, {
-        message: "start date is required .",
-    }),
-    end_date: z.string().date().min(4, {
-        message: "end date is required .",
-    }),
-    time_reminder: z.number().min(4, {
+    status: z.boolean(),
+    start_date: z.string().optional(),
+    end_date: z.string().optional(),
+    time_reminder: z.string().min(1, {
         message: "time reminder is required .",
     }),
-    priority: z.string().min(4, {
+    category: z.number().min(1, {
+        message: "category is required .",
+    }),
+    priority: z.string().min(1, {
         message: "priority is required .",
     }),
+})
+
+export const shareTaskType = z.object({
+    id: z.number().min(1, {
+        message: "title is required .",
+    }),
+    email: z.string().email().min(4, {
+        message: "description is required .",
+    })
 })

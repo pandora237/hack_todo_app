@@ -3,15 +3,22 @@
 
 type StoreState = {
     user: null | User,
-    setUser: (user?: User) => void,
-
+    setUser: (user: User | null) => void,
+    categories: Categorie[],
+    setCategories: (categories: Categorie[] | []) => void,
 }
 
 
 type User = {
-    id: number,
-    isLogged: boolean
-
+    token: string,
+    user: {
+        id: number,
+        username: string,
+        email: string,
+        first_name: string,
+        last_name: string,
+        avatar: string
+    }
 }
 
 enum Priority {
@@ -20,13 +27,15 @@ enum Priority {
     High = "high"
 }
 
+
+
 type Task = {
     id: number;
     title: string,
     description: string,
     status: boolean,
-    start_date: Date,
-    end_date: Date,
+    start_date: string,
+    end_date: string,
     time_reminder: number,
     priority: number,
     category: Categorie
@@ -34,6 +43,7 @@ type Task = {
 
 type Categorie = {
     id: number,
-    title: string,
-    description: string
+    name: string,
+    description: string,
+    icon?: string,
 }

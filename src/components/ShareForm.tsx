@@ -11,47 +11,51 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/override/InputCustom"
-import { loginFormType } from '@/utils/schema'
+import { loginFormType, shareTaskType } from '@/utils/schema'
 import { SubmitHandler, useForm } from "react-hook-form"
 import { z } from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from '@/components/ui/override/ButtonCustom'
-import { useState } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 import { loginServices } from "@/utils/request/services"
 import { toast } from "react-toastify"
 import useStoreTodoApp from "@/utils/stores"
 import { useRouter } from "next/navigation"
+import { ActionFormTask } from "@/utils/helpers"
 
 
 interface Props {
+    closeForm?: Dispatch<SetStateAction<ActionFormTask | false>>
+    task?: Task
 }
 
-type LoginTypeDatas = z.infer<typeof loginFormType>
+type ShareTaskTypeDatas = z.infer<typeof shareTaskType>
 
-export default function LoginForm(props: Props) {
+export default function ShareForm(props: Props) {
+    const { closeForm, task } = props
+
     const [loader, setLoader] = useState(false)
     const route = useRouter()
     const user = useStoreTodoApp(s => s.user)
     const setUser = useStoreTodoApp(s => s.setUser)
 
-    const form = useForm<LoginTypeDatas>({
-        resolver: zodResolver(loginFormType),
+    const form = useForm<ShareTaskTypeDatas>({
+        resolver: zodResolver(shareTaskType),
         defaultValues: {
             email: "",
         },
     })
-    const processLogin = (resp: any) => { 
+    const processLogin = (resp: any) => {
+        console.log(resp)
         if (resp.success) {
-            toast.success("Authentification réussi.")
-            setUser(resp.data?.user);
-            route.push(`/`)
+            toast.success("partage réussi.")
+            setUser(resp.data?.user)
         } else {
             setLoader(false)
-            toast.error("echec de l'authentification.")
         }
     }
 
-    const onSubmit: SubmitHandler<LoginTypeDatas> = (datas) => {
+    const onSubmit: SubmitHandler<ShareTaskTypeDatas> = (datas) => {
         setLoader(true)
         loginServices(datas, processLogin)
     }
@@ -61,7 +65,16 @@ export default function LoginForm(props: Props) {
         <div className=" max-w-96 min-w-80 bg-accent border-border border-2 p-3 rounded-2xl sm:min-w-96 md:min-w-[450px]">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                    <h1 className=" font-extrabold text-2xl text-center m">Login</h1>
+                    <div className=" w-full flex items-center justify-between text-center " onClick={
+                        () => {
+                            if (closeForm) {
+                                closeForm(false)
+                            }
+                        }}>
+                        <h1 className=" font-extrabold text-2xl text-center m">Share task : {task?.title}</h1>
+                        <span className=" w-6 h-6 bg-red-500 font-bold text-white  cursor-pointer"> X</span>
+                    </div>
+
                     <FormField
                         control={form.control}
                         name="email"
@@ -77,12 +90,11 @@ export default function LoginForm(props: Props) {
                     />
                     <FormField
                         control={form.control}
-                        name="password"
+                        name="id"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>password</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="password" {...field} icon={<i className="fa-solid fa-key"></i>} disabled={loader} />
+                                    <Input type="hidden" {...field} disabled={loader} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

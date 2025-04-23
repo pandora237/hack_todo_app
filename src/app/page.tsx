@@ -1,5 +1,5 @@
 
-import { redirect, useRouter } from "next/navigation";
+import { notFound, redirect, useRouter } from "next/navigation";
 import { allTaskServices } from "@/utils/request/services";
 import ContentHomePage from "@/components/ContentHomePage";
 import { groupTask } from "@/utils/helpers";
@@ -12,7 +12,10 @@ export default async function Linsting() {
   }
 
   const resp = await allTaskServices(token)
-  let taskGroup = groupTask(resp?.data ?? [])
+  // if (!resp?.success) {
+  //   return notFound()
+  // }
+  let taskGroup = groupTask(resp?.success ? resp?.data ?? [] : [])
 
   return (
     < main className=" flex flex-col items-start justify-center w-full h-full">

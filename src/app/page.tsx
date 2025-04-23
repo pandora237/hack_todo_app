@@ -18,7 +18,7 @@ export default async function Linsting() {
   let taskGroup = groupTask(resp?.success ? resp?.data ?? [] : [])
 
   return (
-    < main className=" flex flex-col items-start justify-center w-full h-full">
+    < main className=" flex flex-col items-start justify-center w-[100vw] h-full">
       <ContentHomePage taskGroup={taskGroup} />
     </main>
   )

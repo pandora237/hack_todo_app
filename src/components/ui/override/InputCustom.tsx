@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 
 function Input({ className, type, icon, ...props }: React.ComponentProps<"input"> & { icon?: React.ReactNode }) {
   return (
-    <div className="relative ">
+    <div className="relative w-full">
       <input
         type={type}
         data-slot="input"

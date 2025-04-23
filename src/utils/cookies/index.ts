@@ -8,8 +8,7 @@ export async function userCookies() {
             return cookieStore.has("token") ? cookieStore.get("token")?.value ?? null : null;
         },
         set token(value: string | null) {
-            value
-                ? cookieStore.set("token", `${value}`, { secure: true, httpOnly: true })
+            value ? cookieStore.set("token", `${value}`, { secure: true })
                 : cookieStore.delete("token");
         }
     };

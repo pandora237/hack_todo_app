@@ -65,8 +65,8 @@ export default function ContentHomePage(props: Props) {
         if (id_cat == 0) {
             newTasks = taskGroup
         } else {
-            if (currentT[id_cat]) {
-                newTasks = groupTask(currentT[id_cat])
+            if (useTask[id_cat]) {
+                newTasks = groupTask(useTask[id_cat])
             }
         }
         setCurrentT(prev => newTasks)
@@ -82,16 +82,15 @@ export default function ContentHomePage(props: Props) {
                 setCurrentT(groupTask(task))
                 break;
         }
-
     }
 
     return (
-        <div className=" w-full overflow-x-hidden   px-2 flex flex-col items-center justify-center ">
-            <section>
-                <div className="  py-3">
+        <div className=" w-full    px-2 flex flex-col items-center  ">
+            <section className="">
+                <div className="py-3">
                     <div className="flex max-sm:flex-col sm:gap-4 gap-1 items-center ">
-                        <Input placeholder="search" onKeyUp={handlChange} icon={<i className="fa-solid fa-search fa-2x mr-1"></i>} className=" bg-blue-100 w-80 h-14  border-2 border-accent-foreground !text-xl" />
-                        <div className=" flex items-center gap-1">
+                        <Input placeholder="search" onKeyUp={handlChange} icon={<i className="fa-solid fa-search sm:fa-2x mr-1"></i>} className=" bg-blue-100  sm:h-14 sm:w-full  border-2 border-accent-foreground !text-xl" />
+                        <div className=" w-max flex items-center gap-1">
                             <div className=" md:flex gap-1 items-center">
                                 <Select onValueChange={handlFilterCat} >
                                     <SelectTrigger className="w-44 sm:!h-14 bg-white !text-xl">
@@ -143,18 +142,20 @@ export default function ContentHomePage(props: Props) {
                 </div>
                 <ScrollBar orientation="horizontal" />
             </ScrollArea> */}
-            <section className=" flex gap-0  items-center justify-center  w-full overflow-x-auto overflow-y-hidden h-[calc(100vh_-_210px)]">
-                {datas.length > 0 ?
-                    datas.map((tasks, index) => <CategoriesTasks key={"cat_" + index} tasks={tasks} endUpdate={endUpdate} />) :
-                    <div className=" w-full h-full flex items-center justify-center flex-col gap-1">
-                        <span className=" text-3xl font-extrabold text-destructive">No Taks</span>
-                        {/* <Link href={'/task/add'}>
+            <section className=" flex gap-0  items-center w-[100vw] overflow-x-auto  overflow-y-hidden h-[calc(100vh_-_210px)]">
+                <div className=" m-auto flex h-full">
+                    {datas.length > 0 ?
+                        datas.map((tasks, index) => <CategoriesTasks key={"cat_" + index} tasks={tasks} endUpdate={endUpdate} />) :
+                        <div className=" w-full h-full flex items-center justify-center flex-col gap-1">
+                            <span className=" text-3xl font-extrabold text-destructive">No Taks</span>
+                            {/* <Link href={'/task/add'}>
                             <Button className=" sm:h-14 " >
                                 add task
                             </Button>
                         </Link> */}
-                    </div>
-                }
+                        </div>
+                    }
+                </div>
             </section>
             {/* <Overlay close={showAddForm} >
           <AddTaskForm closeForm={setShowAddForm} />

@@ -46,7 +46,8 @@ export default function ItemsTask(props: Props) {
     const [showAddForm, setShowAddForm] = useState<ActionFormTask | false>(false)
     const user = useStoreTodoApp(s => s.user) as User
 
-    const colorBg = task.priority == 1 ? 'bg-red-200' : task.priority == 2 ? 'bg-yellow-200' : 'bg-green-200'
+    const colorBg = task.priority == 1 ? 'border-red-500' : task.priority == 2 ? 'border-yellow-500' : 'border-green-500'
+    // const colorBg = task.priority == 1 ? 'border-[#0B60B0]' : task.priority == 2 ? 'border-[#2D9CDB]' : 'border-[#AEDCF3]'
 
 
 
@@ -80,12 +81,13 @@ export default function ItemsTask(props: Props) {
 
     return (
         <div className={` max-w-80 min-w-72  rounded-2xl `}>
-            <Card className={`w-full ${colorBg}`}>
+            {/* <Card className={`w-full ${colorBg}`}> */}
+            <Card className={`w-full border-2  ${colorBg} dark:bg-accent bg-secondary`}>
                 <CardHeader>
                     <CardTitle className=" flex w-full items-center justify-between ">
                         <span className=" flex flex-wrap items-center gap-1">
                             <span>{task.title}</span>
-                            <span className={` block w-3 h-3 rounded-full ${task.status ? 'bg-green-700' : 'bg-destructive'}`} />
+                            <span title={task.status ? 'Task is runnig' : 'Task is end'} className={` block w-3 h-3 rounded-full ${task.status ? 'bg-green-700' : 'bg-destructive'}`} />
                         </span>
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>

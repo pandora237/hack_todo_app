@@ -40,7 +40,7 @@ export default function LoginForm(props: Props) {
             email: "",
         },
     })
-    const processLogin = (resp: any) => { 
+    const processLogin = (resp: any) => {
         if (resp.success) {
             toast.success("Authentification réussi.")
             setUser(resp.data);
@@ -58,7 +58,7 @@ export default function LoginForm(props: Props) {
 
 
     return (
-        <div className=" max-w-96 min-w-80 bg-accent border-border border-2 p-3 bg-background  rounded-2xl sm:min-w-96 md:min-w-[450px]">
+        <div className=" max-w-96 min-w-80 border-border border-2 p-3 bg-background  rounded-2xl sm:min-w-96 md:min-w-[450px]">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <h1 className=" font-extrabold text-2xl text-center m">Login</h1>

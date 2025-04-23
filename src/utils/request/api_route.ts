@@ -14,6 +14,8 @@ export const api_routes = () => {
         task: {
             getAll: `${base_url}/tasks/`,
             add: `${base_url}/tasks/`,
+            edit: `${base_url}/tasks/{id}/`,
+            patch: `${base_url}/tasks/{id}/`,
             getSingle: `${base_url}/tasks/{id}/`,
             delete: `${base_url}/tasks/{id}/`,
             setStatus: `${base_url}/tasks/`,

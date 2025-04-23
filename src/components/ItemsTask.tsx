@@ -23,7 +23,10 @@ import {
 import { Moon, Sun } from "lucide-react"
 import ShareForm from "./ShareForm"
 import Link from "next/link"
-import { ActionFormTask } from "@/utils/helpers"
+import { ActionFormTask, ActionTypeUpdate } from "@/utils/helpers"
+import { deleteTaskServices, patchTaskServices } from "@/utils/request/services"
+import useStoreTodoApp from "@/utils/stores"
+import { toast } from "react-toastify"
 
 enum status {
     progress = 'progress',
@@ -33,22 +36,46 @@ enum status {
 
 
 interface Props {
-    task: Task
+    task: Task,
+    endUpdate?: (actionType: ActionTypeUpdate, data: Task[]) => void
 }
 
 export default function ItemsTask(props: Props) {
-    const { task } = props
+    const { task, endUpdate } = props
     const [loade, setLoad] = useState(false)
     const [showAddForm, setShowAddForm] = useState<ActionFormTask | false>(false)
+    const user = useStoreTodoApp(s => s.user) as User
 
     const colorBg = task.priority == 1 ? 'bg-red-200' : task.priority == 2 ? 'bg-yellow-200' : 'bg-green-200'
 
-    const handlerEndTask = () => {
 
+
+    const processDel = (resp: any) => {
+        if (resp?.success) {
+            toast.success('success to delete task.')
+            endUpdate ? endUpdate(ActionTypeUpdate.delete, resp?.data) : null
+        } else {
+            toast.error('faild to delete task.')
+        }
+        setLoad(false)
     }
-
     const handlerDeleteTask = () => {
-
+        console.log('sdfsdf')
+        setLoad(true)
+        deleteTaskServices(user.token, task.id, processDel)
+    }
+    const processSetEnd = (resp: any) => {
+        if (resp?.success) {
+            toast.success('success to set end task.')
+            endUpdate ? endUpdate(ActionTypeUpdate.delete, resp?.data) : null
+        } else {
+            toast.error('faild to set end task.')
+        }
+        setLoad(false)
+    }
+    const handlerEndTask = () => {
+        setLoad(true)
+        patchTaskServices(user.token, task.id, { status: false }, processSetEnd)
     }
 
     return (
@@ -62,25 +89,26 @@ export default function ItemsTask(props: Props) {
                         </span>
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="outline" isLoader={loade} hiddenChild={true} disabled={loade} className=" w-8 h-8 text-center font-extrabold">
+                                <Button variant="default" isLoader={loade} hiddenChild={true} disabled={loade} className=" w-8 h-8 text-center font-extrabold">
                                     ...
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
-                                <DropdownMenuItem onClick={() => { setShowAddForm(ActionFormTask.addEdit) }}>
-                                    edit
+                                {/* <DropdownMenuItem onClick={() => { setShowAddForm(ActionFormTask.addEdit) }}> */}
+                                <DropdownMenuItem >
+                                    <Link href={'/task/edit/' + task.id} className=" w-full"> <span><span className=" mr-2"><i className="fa-solid fa-pen-to-square"></i></span> edit</span> </Link>
                                 </DropdownMenuItem>
                                 {
                                     task.status ?
-                                        <DropdownMenuItem onClick={() => { handlerEndTask }}>
-                                            Terminer
+                                        <DropdownMenuItem >
+                                            <div className=" w-full" onClick={handlerEndTask}><span className=" mr-2"><i className="fa-solid fa-hourglass-end"></i> </span> set End</div>
                                         </DropdownMenuItem> : null
                                 }
-                                <DropdownMenuItem onClick={() => { setShowAddForm(ActionFormTask.share) }}>
-                                    partager
+                                <DropdownMenuItem >
+                                    <div className=" w-full" onClick={() => { setShowAddForm(ActionFormTask.share) }}><span className=" mr-2"><i className="fa-solid fa-share-nodes"></i> </span> partager</div>
                                 </DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => { handlerDeleteTask }}>
-                                    delete
+                                <DropdownMenuItem >
+                                    <div onClick={handlerDeleteTask} className=" w-full"><span className=" mr-2"><i className="fa-solid fa-trash"></i> </span> delete</div>
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -96,7 +124,7 @@ export default function ItemsTask(props: Props) {
                         <div >
                             {
                                 !task.status ?
-                                    <Button disabled={loade} > <Link href={'/task/edit/' + task.id}> edit</Link></Button>
+                                    <Link href={'/task/edit/' + task.id}> <Button disabled={loade} > edit</Button></Link>
                                     : null
                             }
 
@@ -108,8 +136,7 @@ export default function ItemsTask(props: Props) {
                 {
                     showAddForm == ActionFormTask.addEdit ?
                         <AddTaskForm closeForm={setShowAddForm} task={task} /> :
-                        <ShareForm closeForm={setShowAddForm} task={task} />
-
+                        <ShareForm closeForm={setShowAddForm} task={task} endUpdate={endUpdate} />
                 }
             </Overlay>
         </div >

@@ -8,6 +8,18 @@ export function formatErros(datas: { [key: string]: string[] }): string[] {
     return errors
 }
 
+export function groupTask(task: Task[]) {
+    let taskGroup: Record<number, Task[]> = {};
+    task.forEach((task: Task) => {
+        const categoryId = task?.category?.id ?? 0;
+        if (!taskGroup[categoryId]) {
+            taskGroup[categoryId] = [];
+        }
+        taskGroup[categoryId].push(task);
+    });
+    return taskGroup
+}
+
 export const Helps = {
     code_authentication: 402,
     local_url: process.env.NEXT_PUBLIC_LOCAL_API_URL,
@@ -15,5 +27,10 @@ export const Helps = {
 
 export enum ActionFormTask {
     addEdit = 'add',
+    share = 'share'
+}
+
+export enum ActionTypeUpdate {
+    delete = 'delete',
     share = 'share'
 }

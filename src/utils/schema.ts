@@ -35,7 +35,7 @@ export const addTaskType = z.object({
     description: z.string().min(4, {
         message: "description is required .",
     }),
-    status: z.boolean(),
+    status: z.number().optional(),
     start_date: z.string().optional(),
     end_date: z.string().optional(),
     time_reminder: z.string().min(1, {
@@ -44,16 +44,16 @@ export const addTaskType = z.object({
     category: z.number().min(1, {
         message: "category is required .",
     }),
-    priority: z.string().min(1, {
+    priority: z.number().min(1, {
         message: "priority is required .",
     }),
 })
 
 export const shareTaskType = z.object({
-    id: z.number().min(1, {
-        message: "title is required .",
+    id_task: z.number().min(1, {
+        message: "id_task is required .",
     }),
-    email: z.string().email().min(4, {
-        message: "description is required .",
+    email_invited_user: z.string().email().min(4, {
+        message: "Email is required .",
     })
 })

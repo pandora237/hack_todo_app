@@ -1,33 +1,31 @@
-'use client'
 
 
-import AddTaskForm from "@/components/AddTaskForm";
-import RegisterForm from "@/components/RegisterForm";
-import LoadingUi from "@/components/ui/LoadingUi";
+import AddTaskForm from "@/components/AddTaskForm";  
+import userCookies from "@/utils/cookies";
 import { singleTaskServices } from "@/utils/request/services";
-import useStoreTodoApp from "@/utils/stores";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
 
-export const dynamic = 'force-dynamic';
+// export const dynamic = 'force-dynamic';
 
 export default async function Task({ params }: { params: { id: string } }) {
-  const user = useStoreTodoApp(s => s.user)
 
+  userCookies.token
 
   const id = parseInt(params.id);
-  const data = await singleTaskServices(id, user?.token ?? '')
-  if (!data.success) {
-    console.log('datadatadatadata:', data)
+  if (!id || !(id > 0)) {
     return notFound()
   }
+
+  const rest = await singleTaskServices(id, userCookies.token)
+  if (!rest?.success) {
+    return notFound()
+  }
+
+
   return (
-    // <Suspense fallback={<LoadingUi />} >
-    <Suspense fallback={'Loading ... '} >
-      <div>
-        <AddTaskForm task={data?.data} />
-      </div>
-    </Suspense>
-  );
+    <div>
+      <AddTaskForm task={rest?.data} />
+    </div>
+  )
 }

@@ -17,47 +17,50 @@ import { z } from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from '@/components/ui/override/ButtonCustom'
 import { Dispatch, SetStateAction, useState } from "react"
-import { loginServices } from "@/utils/request/services"
+import { loginServices, shareTaskServices } from "@/utils/request/services"
 import { toast } from "react-toastify"
 import useStoreTodoApp from "@/utils/stores"
 import { useRouter } from "next/navigation"
-import { ActionFormTask } from "@/utils/helpers"
+import { ActionFormTask, ActionTypeUpdate } from "@/utils/helpers"
 
 
 interface Props {
     closeForm?: Dispatch<SetStateAction<ActionFormTask | false>>
-    task?: Task
+    task?: Task,
+    endUpdate?: (actionType: ActionTypeUpdate, data: Task[]) => void
+
 }
 
 type ShareTaskTypeDatas = z.infer<typeof shareTaskType>
 
 export default function ShareForm(props: Props) {
-    const { closeForm, task } = props
+    const { closeForm, task, endUpdate } = props
 
     const [loader, setLoader] = useState(false)
     const route = useRouter()
-    const user = useStoreTodoApp(s => s.user)
-    const setUser = useStoreTodoApp(s => s.setUser)
+    const user = useStoreTodoApp(s => s.user) as User
 
     const form = useForm<ShareTaskTypeDatas>({
         resolver: zodResolver(shareTaskType),
         defaultValues: {
-            email: "",
+            email_invited_user: "",
+            id_task: task?.id,
         },
     })
-    const processLogin = (resp: any) => {
-        console.log(resp)
-        if (resp.success) {
-            toast.success("partage réussi.")
-            setUser(resp.data?.user)
+
+    const processShare = (resp: any) => {
+        if (resp?.success) {
+            toast.success('success to share task.')
+            endUpdate ? endUpdate(ActionTypeUpdate.share, resp?.data) : null
         } else {
-            setLoader(false)
+            toast.error('faild to share task.')
         }
+        setLoader(false)
     }
 
     const onSubmit: SubmitHandler<ShareTaskTypeDatas> = (datas) => {
         setLoader(true)
-        loginServices(datas, processLogin)
+        shareTaskServices(user.token, datas, processShare)
     }
 
 
@@ -77,10 +80,10 @@ export default function ShareForm(props: Props) {
 
                     <FormField
                         control={form.control}
-                        name="email"
+                        name="email_invited_user"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>email</FormLabel>
+                                <FormLabel>Email</FormLabel>
                                 <FormControl>
                                     <Input placeholder="email" {...field} icon={<i className="fa-solid fa-envelope"></i>} disabled={loader} />
                                 </FormControl>
@@ -90,7 +93,7 @@ export default function ShareForm(props: Props) {
                     />
                     <FormField
                         control={form.control}
-                        name="id"
+                        name="id_task"
                         render={({ field }) => (
                             <FormItem>
                                 <FormControl>

@@ -16,7 +16,7 @@ import { SubmitHandler, useForm } from "react-hook-form"
 import { z } from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from '@/components/ui/override/ButtonCustom'
-import { Dispatch, SetStateAction, useState } from "react"
+import { Dispatch, SetStateAction, useRef, useState } from "react"
 import {
     Select,
     SelectContent,
@@ -39,7 +39,7 @@ import { Textarea } from "./ui/textarea"
 import { useRouter } from "next/navigation"
 import { toast } from "react-toastify"
 import { ActionFormTask, formatErros } from "@/utils/helpers"
-import { addTaskServices } from "@/utils/request/services"
+import { addTaskServices, editTaskServices } from "@/utils/request/services"
 import useStoreTodoApp from "@/utils/stores"
 import { Checkbox } from "./ui/checkbox"
 
@@ -66,15 +66,16 @@ export default function AddTaskForm(props: Props) {
             // start_date: task?.end_date,
             // end_date: task?.start_date,
             time_reminder: task?.time_reminder.toString(),
-            priority: task?.priority.toString() ?? '1',
-            // category: task?.category ?? 0
+            priority: task?.priority ?? 1,
+            status: task?.status ? 1 : 0,
+            category: task?.category?.id ?? 1
         },
     })
 
     const [isLoader, setIsLoader] = useState(false)
     const [statDate, setStatDate] = useState<any>(task?.start_date)
     const [endDate, setEndDate] = useState<any>(task?.end_date)
-
+    const refStatus = useRef(null)
     const route = useRouter()
 
 
@@ -84,8 +85,7 @@ export default function AddTaskForm(props: Props) {
             toast.success("add task successful.")
             route.push('/')
         } else {
-            setIsLoader(false);
-            formatErros(resp?.data).forEach(err => toast.error(`add task failed : ${err}`))
+            resp?.errors ? formatErros(resp?.errors).forEach(err => toast.error(`${err}`)) : null
             // toast.error("Registration failed.");
         }
     }
@@ -108,7 +108,11 @@ export default function AddTaskForm(props: Props) {
         data.end_date = endDate;
         console.log(data)
         setIsLoader(true);
-        addTaskServices(user?.token ?? '', data, processRegister);
+        if (task) {
+            editTaskServices(user?.token ?? '', data, processRegister);
+        } else {
+            addTaskServices(user?.token ?? '', data, processRegister);
+        }
     }
 
     return (
@@ -242,20 +246,41 @@ export default function AddTaskForm(props: Props) {
                     />
                     <FormField
                         control={form.control}
+                        name="category"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>category</FormLabel>
+                                <FormControl>
+                                    <Select {...field} value={field.value?.toString()} disabled={isLoader} onValueChange={(val) => field.onChange(parseInt(val))}>
+                                        <SelectTrigger className="w-[180px]">
+                                            <SelectValue placeholder="Select a priority" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectGroup>
+                                                {
+                                                    categories?.map((cat, index) =>
+                                                        <SelectItem key={'cate_' + index} className="!text-black" value={cat.id.toString()}>{cat.name}</SelectItem>
+                                                    )
+                                                }
+                                                <SelectItem value="3">low</SelectItem>
+                                            </SelectGroup>
+                                        </SelectContent>
+                                    </Select>
+
+
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
                         name="priority"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>priority</FormLabel>
                                 <FormControl>
-                                    <select  {...field} className={cn(
-                                        "border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:hover:bg-input/50 flex w-fit items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-
-                                    )}>
-                                        <option className="!text-black" value="1">high</option>
-                                        <option className="!text-black" value="2">medium</option>
-                                        <option className="!text-black" value="2">low</option>
-                                    </select>
-                                    {/* <Select  {...field} disabled={isLoader}>
+                                    <Select {...field} value={field.value?.toString()} disabled={isLoader} onValueChange={(val) => field.onChange(parseInt(val))}>
                                         <SelectTrigger className="w-[180px]">
                                             <SelectValue placeholder="Select a priority" />
                                         </SelectTrigger>
@@ -266,30 +291,8 @@ export default function AddTaskForm(props: Props) {
                                                 <SelectItem value="3">low</SelectItem>
                                             </SelectGroup>
                                         </SelectContent>
-                                    </Select> */}
+                                    </Select>
 
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="category"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>category</FormLabel>
-                                <FormControl>
-                                    <select  {...field} disabled={isLoader} className={cn(
-                                        "border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:hover:bg-input/50 flex w-fit items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-
-                                    )}>
-                                        {
-                                            categories?.map((cat, index) =>
-                                                <option key={'cate_' + index} className="!text-black" value={cat.id}>{cat.name}</option>
-                                            )
-                                        }
-                                    </select>
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -302,7 +305,11 @@ export default function AddTaskForm(props: Props) {
                             <FormItem>
                                 <FormControl>
                                     <div className="flex items-center space-x-2">
-                                        <Checkbox id="terms" {...field} />
+                                        <Checkbox id="terms" {...field} value={'status'}
+                                            checked={!!field.value}
+                                            defaultChecked={task?.status}
+                                            onCheckedChange={(checked) => field.onChange(checked ? 1 : 0)}
+                                            disabled={isLoader} />
                                         <label
                                             htmlFor="terms"
                                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"

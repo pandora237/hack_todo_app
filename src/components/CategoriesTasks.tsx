@@ -20,9 +20,11 @@ import {
 } from "@/components/ui/select"
 import ItemsTask from "./ItemsTask"
 import { useState } from "react"
+import { ActionTypeUpdate } from "@/utils/helpers"
 
 interface Props {
-    tasks: Task[]
+    tasks: Task[],
+    endUpdate?: (actionType: ActionTypeUpdate, data: Task[]) => void
 }
 
 enum Priority {
@@ -33,7 +35,7 @@ enum Priority {
 
 
 export default function CategoriesTasks(props: Props) {
-    const { tasks } = props
+    const { tasks, endUpdate } = props
     if (tasks.length < 1) {
         return
     }
@@ -70,7 +72,7 @@ export default function CategoriesTasks(props: Props) {
                     </Select>
                 </div>
                 <CardContent className=" flex flex-col gap-3 overflow-y-auto overflow-x-hidden p-2">
-                    {currentT.map(t => <ItemsTask key={'task_' + t.id} task={t} />)}
+                    {currentT.map(t => <ItemsTask key={'task_' + t.id} task={t} endUpdate={endUpdate} />)}
                 </CardContent>
                 <CardFooter className="bg-blue-500 dark:bg-accent py-2 dark:text-accent-foreground">
                     <p>  Footer</p>

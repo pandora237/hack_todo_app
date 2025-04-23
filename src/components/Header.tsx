@@ -40,9 +40,8 @@ export default function Header(props: Props) {
     const { setTheme } = useTheme()
 
     const processGetContext = (resp: any) => {
-        console.log(resp)
         if (resp.success) {
-            setCategories(resp?.data ?? [])
+            setCategories(resp?.data?.categories ?? [])
         }
     }
     useEffect(() => {
@@ -63,16 +62,18 @@ export default function Header(props: Props) {
         setIsLoader(prev => false)
         if (resp?.success) {
             toast.success('Deconnecter')
-            setUser(null)
-            route.replace(`/login`)
+            // setUser(null)
+            // route.replace(`/login`)
         } else {
-            // toast.error('Erreur de deconnexion')
+            toast.error('Erreur de deconnexion')
         }
+        route.replace(`/login`)
+        setUser(null)
     }
 
     const logout = () => {
         setIsLoader(prev => true)
-        logoutServices(processLogout)
+        logoutServices(user?.token ?? '', processLogout)
     }
 
     const toggleLink = () => {

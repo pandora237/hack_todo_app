@@ -43,7 +43,7 @@ export default function LoginForm(props: Props) {
     const processLogin = (resp: any) => { 
         if (resp.success) {
             toast.success("Authentification réussi.")
-            setUser(resp.data?.user);
+            setUser(resp.data);
             route.push(`/`)
         } else {
             setLoader(false)
@@ -82,7 +82,7 @@ export default function LoginForm(props: Props) {
                             <FormItem>
                                 <FormLabel>password</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="password" {...field} icon={<i className="fa-solid fa-key"></i>} disabled={loader} />
+                                    <Input placeholder="password" type="password" {...field} icon={<i className="fa-solid fa-key"></i>} disabled={loader} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

@@ -3,10 +3,10 @@ import { redirect } from "next/navigation";
 import { toast } from "react-toastify";
 import { Helps, is_formdata } from "../helpers";
 
-const clientFetch = async ({ url, method, body, cache, revalidate, tags, callback, priority, show_toast = true, page_fallback = "login", token }: { url: string, method: "GET" | "POST" | "PUT" | "DELETE", body?: any, cache?: 'force-cache' | 'no-store' | 'default' | null, revalidate?: number | null, tags?: string[] | null, callback?: any, priority?: "auto" | "high" | "low", show_toast?: boolean, page_fallback?: string, token?: string }) => {
+const clientFetch = async ({ url, method, body, cache, revalidate, tags, callback, priority, show_toast = true, page_fallback = "login", token }: { url: string, method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH", body?: any, cache?: 'force-cache' | 'no-store' | 'default' | null, revalidate?: number | null, tags?: string[] | null, callback?: any, priority?: "auto" | "high" | "low", show_toast?: boolean, page_fallback?: string, token?: string }) => {
 
     const headers = new Headers()
-    token ? headers.append("Authorization", `Bearer ${token}`) : null
+    token ? headers.append("Authorization", `Token ${token}`) : null
     headers.append("Content-Type", "application/json")
 
     const requestOptions: RequestInit = {

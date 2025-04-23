@@ -65,7 +65,7 @@ export default function ShareForm(props: Props) {
 
 
     return (
-        <div className=" max-w-96 min-w-80 bg-accent border-border border-2 p-3 rounded-2xl sm:min-w-96 md:min-w-[450px]">
+        <div className=" max-w-96 min-w-80 bg-background  border-border border-2 p-3 rounded-2xl sm:min-w-96 md:min-w-[450px]">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <div className=" w-full flex items-center justify-between text-center " onClick={

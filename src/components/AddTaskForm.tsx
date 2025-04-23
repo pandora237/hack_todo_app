@@ -68,7 +68,7 @@ export default function AddTaskForm(props: Props) {
             time_reminder: task?.time_reminder.toString(),
             priority: task?.priority ?? 1,
             status: task?.status ? 1 : 0,
-            category: task?.category?.id ?? 1
+            category: task?.category_details?.id ?? 1
         },
     })
 
@@ -79,10 +79,10 @@ export default function AddTaskForm(props: Props) {
     const route = useRouter()
 
 
-    const processRegister = (resp: any) => {
+    const processAddEdit = (resp: any) => {
         setIsLoader(false)
         if (resp.success) {
-            toast.success("add task successful.")
+            toast.success(task ? 'add ' : 'edit' + " task successful.")
             route.push('/')
         } else {
             resp?.errors ? formatErros(resp?.errors).forEach(err => toast.error(`${err}`)) : null
@@ -109,14 +109,14 @@ export default function AddTaskForm(props: Props) {
         console.log(data)
         setIsLoader(true);
         if (task) {
-            editTaskServices(user?.token ?? '', data, processRegister);
+            editTaskServices(user?.token ?? '', data, processAddEdit);
         } else {
-            addTaskServices(user?.token ?? '', data, processRegister);
+            addTaskServices(user?.token ?? '', data, processAddEdit);
         }
     }
 
     return (
-        <div className=" max-w-96 min-w-72 sm:min-w-96 md:min-w-[450px] bg-accent p-3 rounded-2xl  border-border border-2  ">
+        <div className=" max-w-96 min-w-72 sm:min-w-96 md:min-w-[450px] bg-background p-3 rounded-2xl  border-border border-2  ">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <div className=" w-full flex items-center justify-between text-center " onClick={
@@ -259,7 +259,7 @@ export default function AddTaskForm(props: Props) {
                                             <SelectGroup>
                                                 {
                                                     categories?.map((cat, index) =>
-                                                        <SelectItem key={'cate_' + index} className="!text-black" value={cat.id.toString()}>{cat.name}</SelectItem>
+                                                        <SelectItem key={'cate_' + index} className="" value={cat.id.toString()}>{cat.name}</SelectItem>
                                                     )
                                                 }
                                                 <SelectItem value="3">low</SelectItem>
@@ -326,7 +326,7 @@ export default function AddTaskForm(props: Props) {
                         )}
                     />
 
-                    <Button type="submit" className=" w-full" disabled={isLoader} isLoader={isLoader}  >{task ? 'Edit' : 'add'}</Button>
+                    <Button type="submit" className=" w-full " disabled={isLoader} isLoader={isLoader}  >{task ? 'Edit' : 'add'}</Button>
                 </form>
             </Form>
         </div>

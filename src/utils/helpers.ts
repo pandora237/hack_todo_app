@@ -11,7 +11,7 @@ export function formatErros(datas: { [key: string]: string[] }): string[] {
 export function groupTask(task: Task[]) {
     let taskGroup: Record<number, Task[]> = {};
     task.forEach((task: Task) => {
-        const categoryId = task?.category?.id ?? 0;
+        const categoryId = task?.category_details?.id ?? 0;
         if (!taskGroup[categoryId]) {
             taskGroup[categoryId] = [];
         }

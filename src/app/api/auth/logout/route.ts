@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
     const no_fetch = request.nextUrl.searchParams.get("no_fetch")
     const cookies = await userCookies()
 
@@ -17,8 +17,9 @@ export async function GET(request: NextRequest) {
 
     const token = cookies.token as string
 
+    console.log('adfadfadf')
     if (!(no_fetch && no_fetch === '1')) {
-        response = await clientFetch({ url: api_routes().auth.login, method: 'POST', token: token, body: {} })
+        response = await clientFetch({ url: api_routes().auth.logout, method: 'POST', token: token, body: {} })
     }
 
     // if (response?.success) {

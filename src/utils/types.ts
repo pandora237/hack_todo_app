@@ -41,7 +41,8 @@ type Task = {
     end_date: string,
     time_reminder: number,
     priority: number,
-    category: Categorie
+    category?: number,
+    category_details: Categorie
 }
 
 type Categorie = {

@@ -21,7 +21,9 @@ import useStoreTodoApp from "@/utils/stores";
 import { redirect, useRouter } from "next/navigation";
 import Link from "next/link";
 import { allTaskServices, singleTaskServices } from "@/utils/request/services";
-import { ActionTypeUpdate } from "@/utils/helpers";
+import { ActionTypeUpdate, groupTask } from "@/utils/helpers";
+import { ScrollBar, ScrollArea } from "./ui/scroll-area";
+import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
 
 interface Props {
     taskGroup: Record<number, Task[]>
@@ -29,18 +31,15 @@ interface Props {
 
 export default function ContentHomePage(props: Props) {
     const { taskGroup } = props
+    let useTask = taskGroup
 
-    const [currentT, setCurrentT] = useState<Record<number, Task[]>>(taskGroup)
+    const [currentT, setCurrentT] = useState<Record<number, Task[]>>(useTask)
     const [showAddForm, setShowAddForm] = useState(false)
     const route = useRouter()
 
     const user = useStoreTodoApp(s => s.user)
     const categories = useStoreTodoApp(s => s.categories)
 
-    useEffect(() => {
-        setCurrentT(taskGroup)
-        allTaskServices(user?.token ?? '',)
-    }, [])
     const datas = currentT ? Object.values(currentT) : []
     const handlChange = (e: any) => {
         const val = e.target.value.trim().toLocaleLowerCase()
@@ -67,27 +66,27 @@ export default function ContentHomePage(props: Props) {
             newTasks = taskGroup
         } else {
             if (currentT[id_cat]) {
-                newTasks = currentT[id_cat]
+                newTasks = groupTask(currentT[id_cat])
             }
         }
         setCurrentT(prev => newTasks)
     }
 
-    const endUpdate = (actionType: ActionTypeUpdate) => {
+    const endUpdate = (actionType: ActionTypeUpdate, task: Task[]) => {
 
         switch (actionType) {
             case ActionTypeUpdate.delete:
-
+                setCurrentT(groupTask(task))
                 break;
             case ActionTypeUpdate.share:
-
+                setCurrentT(groupTask(task))
                 break;
         }
 
     }
 
     return (
-        <div className=" w-[98vw] overflow-x-hidden   px-2 flex flex-col items-center justify-center ">
+        <div className=" w-full overflow-x-hidden   px-2 flex flex-col items-center justify-center ">
             <section>
                 <div className="  py-3">
                     <div className="flex max-sm:flex-col sm:gap-4 gap-1 items-center ">
@@ -121,11 +120,39 @@ export default function ContentHomePage(props: Props) {
                     </div>
                 </div>
             </section >
+
+            {/* <Carousel >
+                <CarouselContent className=" h-[calc(100vh_-_210px)]">
+                    {datas.length > 0 ?
+                        datas.map((tasks, index) => <CategoriesTasks key={"cat_" + index} tasks={tasks} endUpdate={endUpdate} />) :
+                        <div className=" w-full h-full flex items-center justify-center">
+                            <span className=" text-2xl font-bold">No Taks</span>
+                        </div>
+                    }
+                </CarouselContent>
+            </Carousel> */}
+
+            {/* <ScrollArea className="w-full whitespace-nowrap rounded-md  h-[calc(100vh_-_210px)]">
+                <div className="flex w-max space-x-4 p-4 h-full">
+                    {datas.length > 0 ?
+                        datas.map((tasks, index) => <CategoriesTasks key={"cat_" + index} tasks={tasks} endUpdate={endUpdate} />) :
+                        <div className=" w-full h-full flex items-center justify-center">
+                            <span className=" text-2xl font-bold">No Taks</span>
+                        </div>
+                    }
+                </div>
+                <ScrollBar orientation="horizontal" />
+            </ScrollArea> */}
             <section className=" flex gap-0  items-center justify-center  w-full overflow-x-auto overflow-y-hidden h-[calc(100vh_-_210px)]">
                 {datas.length > 0 ?
                     datas.map((tasks, index) => <CategoriesTasks key={"cat_" + index} tasks={tasks} endUpdate={endUpdate} />) :
-                    <div className=" w-full h-full flex items-center justify-center">
-                        <span className=" text-2xl font-bold">No Taks</span>
+                    <div className=" w-full h-full flex items-center justify-center flex-col gap-1">
+                        <span className=" text-3xl font-extrabold text-destructive">No Taks</span>
+                        {/* <Link href={'/task/add'}>
+                            <Button className=" sm:h-14 " >
+                                add task
+                            </Button>
+                        </Link> */}
                     </div>
                 }
             </section>

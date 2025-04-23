@@ -22,7 +22,7 @@ export async function registerServices(datas: any, callback?: any) {
     }
 }
 export async function contextServices(callback?: any) {
-    const resp = await clientFetch({ url: api_routes().context.get, method: 'GET', callback: callback })
+    const resp = await clientFetch({ url: api_routes().context.get, method: 'GET', callback: callback, show_toast: false })
     if (!callback) {
         return resp
     }
@@ -30,7 +30,6 @@ export async function contextServices(callback?: any) {
 export async function singleTaskServices(id: number, token: string, callback?: any) {
     const resp = await clientFetch({ url: api_routes().task.getSingle.replace('{id}', id.toString()), method: 'GET', callback: callback, token: token })
     if (!callback) {
-        console.log('resp:', resp)
         return resp
     }
 }
@@ -59,7 +58,7 @@ export async function shareTaskServices(token: string, datas: any, callback?: an
     }
 }
 export async function deleteTaskServices(token: string, id: any, callback?: any) {
-    const resp = await clientFetch({ url: api_routes().task.delete.replace('{id}', id), method: 'DELETE', callback: callback, token: token })
+    const resp = await clientFetch({ url: api_routes().task.delete.replace('{id}', id.toString()), method: 'DELETE', callback: callback, token: token })
     if (!callback) {
         return resp
     }

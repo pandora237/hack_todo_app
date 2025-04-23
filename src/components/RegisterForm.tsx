@@ -56,7 +56,7 @@ export default function RegisterForm(props: Props) {
 
 
     return (
-        <div className=" max-w-96 min-w-80 bg-accent border-2 border-border p-3 rounded-md sm:min-w-96 md:min-w-[450px]">
+        <div className=" max-w-96 min-w-80  border-2 border-border p-3  bg-background  rounded-md sm:min-w-96 md:min-w-[450px]">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <h1 className=" font-extrabold text-2xl text-center">Register</h1>
@@ -128,7 +128,7 @@ export default function RegisterForm(props: Props) {
                             </FormItem>
                         )}
                     />
-                    <Button type="submit" isLoader={loader}>Submit</Button>
+                    <Button type="submit" isLoader={loader} className=" w-full">Submit</Button>
                 </form>
             </Form>
         </div>

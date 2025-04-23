@@ -39,7 +39,7 @@ export default function CategoriesTasks(props: Props) {
     if (tasks.length < 1) {
         return
     }
-    let cat = tasks[0].category
+    let cat = tasks[0]?.category_details
     const [currentT, setCurrentT] = useState(tasks)
 
     const handlerChange = (val: string) => {
@@ -57,7 +57,7 @@ export default function CategoriesTasks(props: Props) {
             <Card className=" !w-80 h-full gap-1 grid grid-rows-[50px_auto_50px]">
                 <div className="bg-blue-500 dark:bg-accent py-2 flex items-center justify-between w-full px-2">
                     <CardHeader className="  ">
-                        <CardTitle className=" font-extrabold uppercase text-white "><h2 className="text-sm">{cat?.name}</h2></CardTitle>
+                        <CardTitle className=" font-extrabold uppercase text-white "><h2 className="text-sm flex items-center gap-1"><i className={`fa-solid ${cat?.icon}`}></i><span>{cat?.name}</span></h2></CardTitle>
                     </CardHeader>
                     <Select onValueChange={handlerChange} >
                         <SelectTrigger className="w-[90px] bg-white h-11">
@@ -72,10 +72,10 @@ export default function CategoriesTasks(props: Props) {
                     </Select>
                 </div>
                 <CardContent className=" flex flex-col gap-3 overflow-y-auto overflow-x-hidden p-2">
-                    {currentT.map(t => <ItemsTask key={'task_' + t.id} task={t} endUpdate={endUpdate} />)}
+                    {currentT?.map(t => <ItemsTask key={'task_' + t.id} task={t} endUpdate={endUpdate} />)}
                 </CardContent>
                 <CardFooter className="bg-blue-500 dark:bg-accent py-2 dark:text-accent-foreground">
-                    <p>  Footer</p>
+                    <p> {cat?.description} </p>
                 </CardFooter>
             </Card>
         </div>

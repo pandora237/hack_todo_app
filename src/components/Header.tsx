@@ -18,6 +18,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Separator } from "./ui/separator";
 
 interface Props {
 
@@ -62,13 +63,11 @@ export default function Header(props: Props) {
         setIsLoader(prev => false)
         if (resp?.success) {
             toast.success('Deconnecter')
-            // setUser(null)
-            // route.replace(`/login`)
+            setUser(null)
+            route.replace(`/login`)
         } else {
             toast.error('Erreur de deconnexion')
         }
-        route.replace(`/login`)
-        setUser(null)
     }
 
     const logout = () => {
@@ -112,6 +111,10 @@ export default function Header(props: Props) {
                         <div className=' flex flex-col items-end gap-2 '>
                             {isLogged ?
                                 <>
+                                    <div className={`  transition duration-300  `}   >
+                                        <span>{'Bonjour ' + user?.user.username}<span className=" ml-2"><i className="fa-solid fa-face-smile"></i></span></span>
+                                    </div >
+                                    <Separator />
                                     <Link href={`/admin/dashboard`} onClick={() => { toggleLink() }} title={'dashboard'} className={` transition duration-300  hover:text-blue-500 hover:underline`} >
                                         <span className=' mr-1'><i className="fa-solid fa-gear"></i> {'dashboard'}</span>
                                     </Link >

@@ -37,7 +37,7 @@ export default function RootLayout({
       </head>
 
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-accent  min-h-screen flex flex-col justify-between `}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased  bg-linear-to-t from-sky-500 to-indigo-500 bg-[url(/img/bg.jpg)] bg-center bg-repeat bg-cover min-h-screen flex flex-col justify-between `}
       >
         <ThemeProvider
           attribute="class"

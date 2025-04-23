@@ -60,10 +60,10 @@ export default function ItemsTask(props: Props) {
         setLoad(false)
     }
     const handlerDeleteTask = () => {
-        console.log('sdfsdf')
         setLoad(true)
         deleteTaskServices(user.token, task.id, processDel)
     }
+
     const processSetEnd = (resp: any) => {
         if (resp?.success) {
             toast.success('success to set end task.')

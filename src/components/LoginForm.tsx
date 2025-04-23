@@ -58,7 +58,7 @@ export default function LoginForm(props: Props) {
 
 
     return (
-        <div className=" max-w-96 min-w-80 bg-accent border-border border-2 p-3 rounded-2xl sm:min-w-96 md:min-w-[450px]">
+        <div className=" max-w-96 min-w-80 bg-accent border-border border-2 p-3 bg-background  rounded-2xl sm:min-w-96 md:min-w-[450px]">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <h1 className=" font-extrabold text-2xl text-center m">Login</h1>
@@ -69,7 +69,7 @@ export default function LoginForm(props: Props) {
                             <FormItem>
                                 <FormLabel>email</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="email" {...field} icon={<i className="fa-solid fa-envelope"></i>} disabled={loader} />
+                                    <Input placeholder="email"  {...field} icon={<i className="fa-solid fa-envelope"></i>} disabled={loader} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -88,7 +88,7 @@ export default function LoginForm(props: Props) {
                             </FormItem>
                         )}
                     />
-                    <Button type="submit" disabled={loader} isLoader={loader} >Submit</Button>
+                    <Button type="submit" disabled={loader} isLoader={loader} className=" w-full" >Submit</Button>
                 </form>
             </Form>
         </div>

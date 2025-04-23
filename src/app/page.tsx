@@ -12,7 +12,7 @@ export default async function Linsting() {
   }
 
   const resp = await allTaskServices(token)
-  let taskGroup = groupTask(resp?.data)
+  let taskGroup = groupTask(resp?.data ?? [])
 
   return (
     < main className=" flex flex-col items-start justify-center w-full h-full">

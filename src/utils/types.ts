@@ -20,6 +20,9 @@ type User = {
         avatar: string
     }
 }
+interface UserCookie {
+    token: string | null,
+}
 
 enum Priority {
     Low = "low",

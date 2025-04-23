@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 const key_storage = 'datas_todo_app'
 
@@ -16,7 +16,7 @@ const useStoreTodoApp = create<StoreState>()(
             }),
         {
             name: key_storage,
-            getStorage: () => localStorage,
+            storage: createJSONStorage(() => sessionStorage),
         }
     )
 )

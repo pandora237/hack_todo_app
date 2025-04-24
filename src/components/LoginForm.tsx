@@ -21,6 +21,7 @@ import { loginServices } from "@/utils/request/services"
 import { toast } from "react-toastify"
 import useStoreTodoApp from "@/utils/stores"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 
 interface Props {
@@ -88,7 +89,11 @@ export default function LoginForm(props: Props) {
                             </FormItem>
                         )}
                     />
-                    <Button type="submit" disabled={loader} isLoader={loader} className=" w-full" >Submit</Button>
+                    <div className=" w-full flex flex-col items-center">
+                        <Button type="submit" disabled={loader} isLoader={loader} className=" w-full" >Login</Button>
+                        <span>or</span>
+                        <Link href={'/register'} className=" w-full" ><Button type="button" variant={'outline'} className=" w-full">Register</Button></Link>
+                    </div>
                 </form>
             </Form>
         </div>

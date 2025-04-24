@@ -92,7 +92,7 @@ export default function Header(props: Props) {
             </div>
             <div className=" flex items-center gap-2 ">
                 <div className={`h-full group relative `}>
-                    <Button variant={'outline'} size="icon" className={`group relative flex justify-between items-center `}>
+                    <Button variant={'outline'} size="icon" type="button" className={` relative flex justify-between items-center peer `}>
                         <span className={`flex justify-between items-center gap-1 m-auto  cursor-pointer text-base p-1 ${user ? ' text-blue-500 border-b-2 border-blue-500 border-solid ' : ''}`} >
                             {isLoader ?
                                 <svg className={`animate-spin h-[1.2rem] w-[1.2rem]  
@@ -107,7 +107,10 @@ export default function Header(props: Props) {
                             }
                         </span>
                     </Button>
-                    <div className={` shadow-md absolute z-50 top-[calc(100%_+_7px)] -right-4 bg-accent rounded p-3 min-w-full min-h-12 w-max opacity-0 invisible overflow-hidden  group-hover:top-full  group-hover:opacity-100 group-hover:visible transition-all duration-500 ${!showBlock ? '!hidden' : ''}`}>
+                    <div className={` shadow-md absolute z-50 top-[calc(100%_+_7px)] -right-4 bg-accent rounded p-3 min-w-full min-h-12 w-max opacity-0 invisible overflow-hidden  
+                        group-hover:top-full  group-hover:opacity-100 group-hover:visible
+                         peer-focus:top-full   peer-focus:opacity-100  peer-focus:visible 
+                        transition-all duration-500 ${!showBlock ? '!hidden' : ''}`}>
                         <div className=' flex flex-col items-end gap-2 '>
                             {isLogged ?
                                 <>
@@ -118,7 +121,7 @@ export default function Header(props: Props) {
                                     <Link href={`/admin/dashboard`} onClick={() => { toggleLink() }} title={'dashboard'} className={` transition duration-300  hover:text-blue-500 hover:underline`} >
                                         <span className=' mr-1'><i className="fa-solid fa-gear"></i> {'dashboard'}</span>
                                     </Link >
-                                    <div title={'logout'} className={` text-red-600 transition duration-300 cursor-pointer hover:opacity-50 hover:underline`} onClick={() => { logout() }} >
+                                    <div title={'logout'} className={` text-destructive transition duration-300 cursor-pointer hover:opacity-50 hover:underline`} onClick={() => { logout() }} >
                                         <span className=' mr-2'><i className="fa-solid fa-right-from-bracket"></i></span> {'logout'}
                                     </div >
                                 </>

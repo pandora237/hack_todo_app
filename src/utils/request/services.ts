@@ -45,8 +45,8 @@ export async function addTaskServices(token: string, datas: any, callback?: any)
         return resp
     }
 }
-export async function editTaskServices(token: string, datas: any, callback?: any) {
-    const resp = await clientFetch({ url: api_routes().task.edit, method: 'PUT', body: datas, callback: callback, token: token })
+export async function editTaskServices(token: string, datas: any, id: number, callback?: any) {
+    const resp = await clientFetch({ url: api_routes().task.edit.replace('{id}', id.toString()), method: 'PUT', body: datas, callback: callback, token: token })
     if (!callback) {
         return resp
     }
@@ -57,7 +57,7 @@ export async function shareTaskServices(token: string, datas: any, callback?: an
         return resp
     }
 }
-export async function deleteTaskServices(token: string, id: any, callback?: any) {
+export async function deleteTaskServices(token: string, id: number, callback?: any) {
     const resp = await clientFetch({ url: api_routes().task.delete.replace('{id}', id.toString()), method: 'DELETE', callback: callback, token: token })
     if (!callback) {
         return resp

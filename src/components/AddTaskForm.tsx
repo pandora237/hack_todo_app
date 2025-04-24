@@ -109,7 +109,7 @@ export default function AddTaskForm(props: Props) {
         console.log(data)
         setIsLoader(true);
         if (task) {
-            editTaskServices(user?.token ?? '', data, processAddEdit);
+            user?.token ? editTaskServices(user?.token, data, task.id, processAddEdit) : setIsLoader(true);
         } else {
             addTaskServices(user?.token ?? '', data, processAddEdit);
         }

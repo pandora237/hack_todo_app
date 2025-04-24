@@ -123,14 +123,14 @@ export default function ItemsTask(props: Props) {
                 <CardFooter className=" w-full">
                     <div className=" flex items-center justify-between w-full">
                         <Badge>{task.priority == 1 ? 'higt' : task.priority == 2 ? 'medium' : 'low'}</Badge>
-                        <div >
+                        {/* <div >
                             {
                                 !task.status ?
                                     <Link href={'/task/edit/' + task.id}> <Button disabled={loade} > edit</Button></Link>
                                     : null
                             }
 
-                        </div>
+                        </div> */}
                     </div>
                 </CardFooter>
             </Card>

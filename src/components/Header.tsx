@@ -84,7 +84,7 @@ export default function Header(props: Props) {
 
     return (
         <nav className=" w-full flex justify-between items-center py-2 px-4 shadow-md bg-accent">
-            <Link href="/" className="cursor-pointer " title="TodoApp">
+            <Link href="/" className="cursor-pointer animate-bounce" title="TodoApp">
                 <Image height={30} width={30} src={'/img/logo.svg'} alt="logo" />
             </Link>
             <div className=" w-full flex items-center justify-center">

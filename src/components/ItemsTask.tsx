@@ -79,6 +79,31 @@ export default function ItemsTask(props: Props) {
         patchTaskServices(user.token, task.id, { status: false }, processSetEnd)
     }
 
+    const userF = [
+        {
+            id: 2,
+            username: 'Fr_al',
+            email: 'jhon@hotmail.com',
+            first_name: 'jhon',
+            last_name: 'Atangana',
+        },
+        {
+            id: 6,
+            username: 'at_l',
+            email: 'ibrahim@hotmail.com',
+            first_name: 'toussa',
+            last_name: 'Obrahim',
+        },
+        {
+            id: 8,
+            username: 'at_l',
+            email: 'ibrahim@hotmail.com',
+            first_name: 'roussa',
+            last_name: 'ibrahim',
+        } 
+    ]
+
+
     return (
         <div className={` max-w-80 min-w-72  rounded-2xl `}>
             {/* <Card className={`w-full ${colorBg}`}> */}
@@ -123,6 +148,24 @@ export default function ItemsTask(props: Props) {
                 <CardFooter className=" w-full">
                     <div className=" flex items-center justify-between w-full">
                         <Badge>{task.priority == 1 ? 'higt' : task.priority == 2 ? 'medium' : 'low'}</Badge>
+                        <div className=" flex text-accent relative h-8 w-1/2">
+                            {
+                                userF?.map((u, i) =>
+                                    <div title={u.first_name + ' ' + u.last_name} key={'userSh_' + u.id + task.id} className={`absolute right-0 group cursor-default  `} style={{ translate: `-${i * 20}px` }}>
+                                        < div 
+                                            className=" w-8 h-8 bg-primary rounded-full shadow-xl 
+                                            text-center border-2 border-accent flex items-center justify-center font-bold 
+                                            hover:w-11 hover:h-11 group-hover:-translate-y-5 transition-all duration-200 ">
+                                            <span className="">
+                                                {
+                                                    (u.first_name[0] + u.last_name[0]).toUpperCase()
+                                                }
+                                            </span>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        </div>
                         {/* <div >
                             {
                                 !task.status ?

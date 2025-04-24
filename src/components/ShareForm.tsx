@@ -52,6 +52,7 @@ export default function ShareForm(props: Props) {
         if (resp?.success) {
             toast.success('success to share task.')
             endUpdate ? endUpdate(ActionTypeUpdate.share, resp?.data) : null
+            closeForm ? closeForm(false) : null
         } else {
             toast.error('faild to share task.')
         }

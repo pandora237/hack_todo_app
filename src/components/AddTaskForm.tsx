@@ -82,7 +82,7 @@ export default function AddTaskForm(props: Props) {
     const processAddEdit = (resp: any) => {
         setIsLoader(false)
         if (resp.success) {
-            toast.success(task ? 'add ' : 'edit' + " task successful.")
+            toast.success((task ? 'edit ' : ' add') + " task successful.")
             route.push('/')
         } else {
             resp?.errors ? formatErros(resp?.errors).forEach(err => toast.error(`${err}`)) : null

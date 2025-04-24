@@ -140,7 +140,7 @@ export default function ItemsTask(props: Props) {
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </CardTitle>
-                    <CardDescription>{task.status ? 'task is end' : 'task in progress'}</CardDescription>
+                    <CardDescription>{task.status ? 'task in progress' : ' task is end'}</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <p>{task.description}</p>
